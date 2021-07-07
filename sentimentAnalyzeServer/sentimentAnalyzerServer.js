@@ -32,20 +32,65 @@ app.get("/", (req, res) => {
 });
 
 app.get("/url/emotion", (req, res) => {
-
-  return res.send({ "happy": "90", "sad": "10" });
+  const analyzeParams = {
+    url: req.query.url,
+    'features': {
+      'emotion': {},
+    }
+  };
+  const response = getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    return res.send(JSON.stringify(analysisResults.result.emotion.document, null, 2));
+  }).catch(err => {
+    console.error("error: ", err);
+    return res.send(err);
+  })
 });
 
 app.get("/url/sentiment", (req, res) => {
-  return res.send("url sentiment for " + req.query.url);
+  console.log("request: ", req.query);
+  const analyzeParams = {
+    url: req.query.url,
+    'features': {
+      'sentiment': {},
+    }
+  };
+  const response = getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    return res.send(JSON.stringify(analysisResults.result.sentiment.document, null, 2));
+  }).catch(err => {
+    console.log("error: ", err);
+
+    return res.send(err);
+  });
 });
 
 app.get("/text/emotion", (req, res) => {
-  return res.send({ "happy": "10", "sad": "90" });
+  const analyzeParams = {
+    url: req.query.text,
+    'features': {
+      'emotion': {},
+    }
+  };
+  const response = getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    return res.send(JSON.stringify(analysisResults.result.emotion.document, null, 2));
+  }).catch(err => {
+    console.error("error: ", err);
+    return res.send(err);
+  });
 });
 
 app.get("/text/sentiment", (req, res) => {
-  return res.send("text sentiment for " + req.query.text);
+  const analyzeParams = {
+    url: req.query.text,
+    'features': {
+      'sentiment': {},
+    }
+  };
+  const response = getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    return res.send(JSON.stringify(analysisResults.result.sentiment.document, null, 2));
+  }).catch(err => {
+    console.error("error: ", err);
+    return res.send(err);
+  });
 });
 
 let server = app.listen(8080, () => {
