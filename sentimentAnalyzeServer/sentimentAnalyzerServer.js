@@ -65,7 +65,7 @@ app.get("/url/sentiment", (req, res) => {
 
 app.get("/text/emotion", (req, res) => {
   const analyzeParams = {
-    url: req.query.text,
+    'text': req.query.text,
     'features': {
       'emotion': {},
     }
@@ -80,7 +80,7 @@ app.get("/text/emotion", (req, res) => {
 
 app.get("/text/sentiment", (req, res) => {
   const analyzeParams = {
-    url: req.query.text,
+    'text': req.query.text,
     'features': {
       'sentiment': {},
     }
